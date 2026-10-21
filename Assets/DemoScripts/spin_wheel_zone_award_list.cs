@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class AwardEntry
 {
-    public spin_award_item_data data;
+    public spin_award_item_data item_data;
     public int amount;
 }
 

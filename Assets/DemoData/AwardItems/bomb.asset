@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf50d89523e28064786299f1a6ae7c9a, type: 3}
   m_Name: bomb
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
-  item_id: spin_bomb
+  item_id: bomb
   display_name: Bomb
   item_icon: {fileID: -6860072587592751284, guid: 78b5fb18f9597c343b28d4a6d34906fb, type: 3}

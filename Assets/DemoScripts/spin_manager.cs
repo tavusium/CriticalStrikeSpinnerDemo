@@ -1,83 +1,160 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using TMPro;
 
 public class Spin_Manager : MonoBehaviour
 {
-    [SerializeField] private GameObject ref_spin_wheel;
-    private spin_wheel_component spin_wheel_comp;
+    [SerializeField]
+    private spin_minigame_manager minigame_manager;
+
+    [Header("Spin Settings")]
     [SerializeField] private float spin_duration = 3f;
 
-    private Button ref_spin_button;
-    private Button ref_revive_button_currency;
-    private Button ref_revive_button_ad;
-    private Button ref_giveup_button;
-    private Button ref_claim_button;
+    [Header("Appearance")]
+    [SerializeField]
+    private spin_wheel_zone_appearence wheel_sprites;
+
+    [Header("Audio")]
+    [SerializeField]
+    private AudioSource spin_audio_source;
+    [SerializeField]
+    private AudioClip spin_audio_clip;
+
+    private GameObject ref_wheel_barrel;
+    private spin_wheel_barrel ref_wheel_barrel_component;
+    private TMP_Text ref_wheel_title_tmp;
+    private TMP_Text ref_wheel_description_tmp;
+    private Image ref_wheel_indicator_image;
+
+
+
+
+
+    private Button ref_spin_button; // offload this to minigame manager
+
 
 
     private bool is_spinning = false;
-    private int current_index = 0;
+    private int landed_index = 0;
 
 
-    [SerializeField] private AudioSource spin_audio_source;
-    [SerializeField] private AudioClip spin_audio_clip;
 
 
     // Editor-only validation method to get the button references
     private void OnValidate()
     {
-        ref_spin_button = GameObject.Find("Button_Spin_Wheel").GetComponent<Button>();
-        /*
-        ref_revive_button_currency = GameObject.Find("Button_Revive_Currency").GetComponent<Button>();
-        ref_revive_button_ad = GameObject.Find("Button_Revive_Ad").GetComponent<Button>();
-        ref_giveup_button = GameObject.Find("Button_Giveup").GetComponent<Button>();
-        ref_claim_button = GameObject.Find("Button_Claim").GetComponent<Button>();
-        */
+        ref_spin_button = GameObject.Find("UI_button_spin").GetComponent<Button>();
+        ref_wheel_barrel = GameObject.Find("UI_wheel_barrel");
+        ref_wheel_barrel_component = ref_wheel_barrel.GetComponent<spin_wheel_barrel>();
+        ref_wheel_title_tmp = GameObject.Find("UI_wheel_title_value").GetComponent<TMP_Text>();
+        ref_wheel_description_tmp = GameObject.Find("UI_wheel_description_value").GetComponent<TMP_Text>();
+        ref_wheel_indicator_image = GameObject.Find("UI_wheel_indicator").GetComponent<Image>();
+
     }
 
     private void Awake()
     {
         ref_spin_button.onClick.AddListener(SpinWheel);
-        spin_wheel_comp = ref_spin_wheel.GetComponent<spin_wheel_component>();
     }
 
+    public void SetZoneType(SpinWheelZoneType zone_type, spin_wheel_zone_award_list awards)
+    {
+        // Update the wheel's appearance and data based on the zone type
+
+        switch (zone_type)
+        {
+            case SpinWheelZoneType.RiskZone:
+                ref_wheel_barrel.GetComponent<Image>().sprite = wheel_sprites.risk_zone_wheel_sprite;
+                ref_wheel_indicator_image.sprite = wheel_sprites.risk_zone_indicator_sprite;
+                ref_wheel_title_tmp.text = wheel_sprites.risk_zone_title_text;
+                ref_wheel_description_tmp.text = wheel_sprites.risk_zone_description_text;
+                break;
+            case SpinWheelZoneType.SafeZone:
+                ref_wheel_barrel.GetComponent<Image>().sprite = wheel_sprites.safe_zone_wheel_sprite;
+                ref_wheel_indicator_image.sprite = wheel_sprites.safe_zone_indicator_sprite;
+                ref_wheel_title_tmp.text = wheel_sprites.safe_zone_title_text;
+                ref_wheel_description_tmp.text = wheel_sprites.safe_zone_description_text;
+                break;
+            case SpinWheelZoneType.SuperZone:
+                ref_wheel_barrel.GetComponent<Image>().sprite = wheel_sprites.super_zone_wheel_sprite;
+                ref_wheel_indicator_image.sprite = wheel_sprites.super_zone_indicator_sprite;
+                ref_wheel_title_tmp.text = wheel_sprites.super_zone_title_text;
+                ref_wheel_description_tmp.text = wheel_sprites.super_zone_description_text;
+                break;
+        }
+
+        ref_wheel_barrel_component.ReconstructBarrel(awards);
+
+
+
+    }
 
     public void SpinWheel()
     {
         if (is_spinning) return;
         is_spinning = true;
 
+
         // Generate a random number of steps to move forward
         int forward_index = Random.Range(0, 8); // How many steps from the current index to move forward
-        Debug.Log("Spinning from index: " + current_index + " to index: " + forward_index);
-        current_index = (forward_index + current_index) % 8; // Setting the new current
+        landed_index = (forward_index + landed_index) % 8;
 
         // Spin to the current index plus 3-4 full rotations to cause the wheel to spin multiple times.
-        float spin_angle = 45f * forward_index + 1080f; // Each index spans 45 degrees, so multiply by 45
+        float spin_angle = 45f * forward_index + 1080f; // Each index spans 45 degrees.
 
-        ref_spin_button.interactable = false; // Disable the spin button while spinning
-        ref_spin_button.image.DOFade(0.5f, 0.2f); // Fade the button to indicate it's disabled
+        // Disable the spin button while spinning
+        ref_spin_button.interactable = false;
 
-        spin_audio_source.PlayOneShot(spin_audio_clip); // Play the spin sound effect
+        // Fade the button to indicate it's disabled
+        ref_spin_button.image.DOFade(0.5f, 0.2f);
 
-        ref_spin_wheel.transform.DOShakeScale(1f, 0.15f, 10, 90, false);
-        ref_spin_wheel.transform.DORotate(new Vector3(0, 0, spin_angle), spin_duration, RotateMode.FastBeyond360)
+        // Play the spin sound effect
+        spin_audio_source.PlayOneShot(spin_audio_clip);
+
+        // Animate the wheel spinning with a shake effect
+        ref_wheel_barrel.transform.DOShakeScale(1f, 0.15f, 10, 90, false);
+        ref_wheel_barrel.transform.DORotate(new Vector3(0, 0, spin_angle), spin_duration, RotateMode.FastBeyond360)
         .SetRelative(true)
         .SetEase(Ease.OutSine)
         .OnComplete(() =>
         {
             is_spinning = false;
-            ref_spin_button.image.DOFade(1f, 0.2f); // Restore the button's original appearance
-            ref_spin_button.interactable = true; // Re-enable the spin button after spinning
-            Debug.Log("Spin Complete! Landed on index: " + current_index);
-            AwardEntry landed_item = spin_wheel_comp.GetItemAtIndex(current_index);
-            if (landed_item != null)
-            {
-                Debug.Log("Landed on item: " + landed_item.data.display_name + " with value: " + landed_item.amount);
-            }
+
+            // Re-enable the spin button after spinning
+            ref_spin_button.interactable = true;
+
+            // Unfade the button.
+            ref_spin_button.image.DOFade(1f, 0.2f);
+
+            // Get the landed item based on the landed index and the current awards from the minigame manager
+            AwardEntry landed_award = minigame_manager.current_awards.award_list[landed_index];
+
+            Debug.Log("Landed on item: " + landed_award.item_data.display_name + " with value: " + landed_award.amount);
+
+            ProcessSpinRoundOutcome(landed_award);
+
         });
+
+
+        // Check if the landed award is a bomb
+
     }
 
+    private void ProcessSpinRoundOutcome(AwardEntry landed_award)
+    {
 
+        if (landed_award.item_data.item_id != "bomb")
+        {
+            // Update the round.
+            minigame_manager.IncreaseSpinRound();
+            minigame_manager.AcquireAwardAtIndex(landed_index);
+        }
+        else
+        {
+            // Handle bomb outcome (e.g., reset round, deduct points, etc.)
+            minigame_manager.TriggerLose();
+        }
+    }
 
 }

@@ -14,7 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_wheel_zone_sprites
   risk_zone_wheel_sprite: {fileID: -7416167051008218582, guid: 212d1404c0f665e4d95e7f4b19419ebc, type: 3}
   risk_zone_indicator_sprite: {fileID: 5759410588988491854, guid: 4544fc4566337a94fb218bb717ce8f63, type: 3}
+  risk_zone_title_text: Bronze Spin
+  risk_zone_description_text: Earn Rewards
   safe_zone_wheel_sprite: {fileID: -4250264824657568362, guid: bf9b2b190dfae7a478605804c6459c2d, type: 3}
   safe_zone_indicator_sprite: {fileID: 2528496851094761378, guid: 57e273adf6872b84881f88b688b978b3, type: 3}
+  safe_zone_title_text: Silver Spin
+  safe_zone_description_text: Earn x3 Rewards
   super_zone_wheel_sprite: {fileID: 5770997025872212153, guid: 9532d8c3ead3f244b805c06b9822dcd9, type: 3}
-  super_zone_indicator_sprite: {fileID: 5770997025872212153, guid: 9532d8c3ead3f244b805c06b9822dcd9, type: 3}
+  super_zone_indicator_sprite: {fileID: 8294000708589155680, guid: 04f09589936117646868294af8a0a207, type: 3}
+  super_zone_title_text: Golden Spin
+  super_zone_description_text: Earn x10 Rewards

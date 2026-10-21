@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: spin_zone_awards_silver
   m_EditorClassIdentifier: Assembly-CSharp::spin_wheel_award_list
   award_list:
-  - data: {fileID: 11400000, guid: 6eec61714b787df40a386e0f764cf7a4, type: 2}
+  - item_data: {fileID: 11400000, guid: 92dd3704c6c1aaa4eb227ca33e479d94, type: 2}
     amount: 6
-  - data: {fileID: 11400000, guid: b588223dfcf70ae4ca50bb955331545b, type: 2}
+  - item_data: {fileID: 11400000, guid: 7e85728eb9e94444e9634edb5eb0e153, type: 2}
     amount: 1
-  - data: {fileID: 11400000, guid: d666a7b0e8d482d48bff09ded0c12df4, type: 2}
+  - item_data: {fileID: 11400000, guid: 86df10a0e26129f459b457900274e3d1, type: 2}
     amount: 1
-  - data: {fileID: 11400000, guid: 76a981f31c2960b4a874c353fd1e1874, type: 2}
+  - item_data: {fileID: 11400000, guid: 76a981f31c2960b4a874c353fd1e1874, type: 2}
     amount: 10000
-  - data: {fileID: 11400000, guid: 4fb3dbda290d8ff42a081334741dd548, type: 2}
+  - item_data: {fileID: 11400000, guid: aaa035f834a017b41a2ff4a1fce412a2, type: 2}
     amount: 1
-  - data: {fileID: 11400000, guid: aaa035f834a017b41a2ff4a1fce412a2, type: 2}
+  - item_data: {fileID: 11400000, guid: b588223dfcf70ae4ca50bb955331545b, type: 2}
     amount: 1
-  - data: {fileID: 11400000, guid: 63638d9d730f93e4fad70be2718c2dda, type: 2}
+  - item_data: {fileID: 11400000, guid: d666a7b0e8d482d48bff09ded0c12df4, type: 2}
     amount: 1
-  - data: {fileID: 11400000, guid: f8c5d3addf28e9c418e191ebb25b0897, type: 2}
+  - item_data: {fileID: 11400000, guid: dcf88379e66f27f4aba4dd7e711851f2, type: 2}
     amount: 10
