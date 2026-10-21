@@ -1,13 +1,18 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class spin_minigame_manager : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private GameObject ref_content_panel;
-    [SerializeField] private GameObject ref_num_spins_text;
-    [SerializeField] private GameObject ref_player_golds_text;
+    [SerializeField] private TMP_Text ref_num_spins_text;
+    [SerializeField] private TMP_Text ref_player_golds_text;
     [SerializeField] private Spin_Manager ref_spin_manager;
+
+    [Header("Prefab References")]
+    [SerializeField] private ui_comp_award_entry prefab_content_entry;
+
 
     [Header("Award Lists")]
     [SerializeField]
@@ -36,8 +41,8 @@ public class spin_minigame_manager : MonoBehaviour
 
     private int num_revives = 0;
 
-    private int safe_per_rounds = 5; // Every 5 rounds, the player enters a safe zone
-    private int super_per_rounds = 10; // Every 30 rounds, the player enters a super zone
+    private int safe_per_rounds = 3; // Every 5 rounds, the player enters a safe zone
+    private int super_per_rounds = 6; // Every 30 rounds, the player enters a super zone
 
     private List<AwardEntry> collected_items = new List<AwardEntry>();
 
@@ -55,7 +60,7 @@ public class spin_minigame_manager : MonoBehaviour
     public void IncreaseSpinRound()
     {
         current_spin_round++;
-        ref_num_spins_text.GetComponent<TMPro.TMP_Text>().text = "Round: " + current_spin_round + "Next: " + (current_spin_round + 1); // TODO: optimize this
+        ref_num_spins_text.text = "Round: " + current_spin_round + "Next: " + (current_spin_round + 1); 
 
         SpinWheelZoneType next_zone_type;
 
@@ -84,6 +89,8 @@ public class spin_minigame_manager : MonoBehaviour
     public void AcquireAwardAtIndex(int index)
     {
         collected_items.Add(current_awards.award_list[index]);
+        ui_comp_award_entry new_entry = Instantiate(prefab_content_entry, ref_content_panel.transform);
+        new_entry.Setup(current_awards.award_list[index].item_data, current_awards.award_list[index].amount);
     }
 
     private int CalculateReviveCost()

@@ -17,15 +17,15 @@ MonoBehaviour:
     amount: 0
   - item_data: {fileID: 11400000, guid: 081d796c890b7c64cb58a302353bf507, type: 2}
     amount: 1
-  - item_data: {fileID: 11400000, guid: 6739274c65121d34cacb5ba290c56292, type: 2}
-    amount: 3
+  - item_data: {fileID: 11400000, guid: eda7acc1514ecda4cac93613c78eccd3, type: 2}
+    amount: 0
   - item_data: {fileID: 11400000, guid: 76a981f31c2960b4a874c353fd1e1874, type: 2}
     amount: 3000
   - item_data: {fileID: 11400000, guid: 5710278083852b54c96eafc6b4711073, type: 2}
     amount: 3
   - item_data: {fileID: 11400000, guid: 418fdb0b5a94f67448368f47344281b6, type: 2}
     amount: 2
-  - item_data: {fileID: 11400000, guid: d3cd9212c0e27f847abe8a2dbbd950f1, type: 2}
-    amount: 10
+  - item_data: {fileID: 11400000, guid: eda7acc1514ecda4cac93613c78eccd3, type: 2}
+    amount: 0
   - item_data: {fileID: 11400000, guid: 76a981f31c2960b4a874c353fd1e1874, type: 2}
     amount: 6000
