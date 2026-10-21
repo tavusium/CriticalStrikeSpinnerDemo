@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4655638280049ed4ebf061d1081d0285, type: 3}
+  m_Name: spin_zone_awards_silver
+  m_EditorClassIdentifier: Assembly-CSharp::spin_wheel_award_list
+  award_list:
+  - data: {fileID: 11400000, guid: 6eec61714b787df40a386e0f764cf7a4, type: 2}
+    amount: 6
+  - data: {fileID: 11400000, guid: b588223dfcf70ae4ca50bb955331545b, type: 2}
+    amount: 1
+  - data: {fileID: 11400000, guid: d666a7b0e8d482d48bff09ded0c12df4, type: 2}
+    amount: 1
+  - data: {fileID: 11400000, guid: 76a981f31c2960b4a874c353fd1e1874, type: 2}
+    amount: 10000
+  - data: {fileID: 11400000, guid: 4fb3dbda290d8ff42a081334741dd548, type: 2}
+    amount: 1
+  - data: {fileID: 11400000, guid: aaa035f834a017b41a2ff4a1fce412a2, type: 2}
+    amount: 1
+  - data: {fileID: 11400000, guid: 63638d9d730f93e4fad70be2718c2dda, type: 2}
+    amount: 1
+  - data: {fileID: 11400000, guid: f8c5d3addf28e9c418e191ebb25b0897, type: 2}
+    amount: 10

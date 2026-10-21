@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf50d89523e28064786299f1a6ae7c9a, type: 3}
+  m_Name: chest_big
+  m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
+  item_id: chest_big
+  display_name: Big Chest
+  item_icon: {fileID: -4939823803957887640, guid: a063c3796963f4c4e907f2e2e957f802, type: 3}
