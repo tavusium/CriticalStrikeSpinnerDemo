@@ -12,7 +12,11 @@ public class ui_comp_award_entry : MonoBehaviour
     public void Setup(spin_award_item_data data, int amount)
     {
         icon.sprite = data.item_icon;
-        //nameText.text = data.display_name;
         amountText.text = amount.ToString();
+    }
+
+    public void UpdateAmount(int newAmount)
+    {
+        amountText.text = newAmount.ToString();
     }
 }

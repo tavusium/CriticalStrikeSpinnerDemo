@@ -43,8 +43,9 @@ public class spin_wheel_barrel : MonoBehaviour
     {
         for (int i = 0; i < 8; i++) // Assuming there are 8 slots on the barrel
         {
-            slot_images[i].sprite = award_list.award_list[i].item_data.item_icon;
-            slot_amount_texts[i].text = award_list.award_list[i].amount.ToString();
+            AwardEntry award = award_list.award_list[i];
+            slot_images[i].sprite = award.item_data.item_icon;
+            slot_amount_texts[i].text = award.item_data.item_id == "bomb" ? "" : "x" + award.amount.ToString();
         }
 
     }

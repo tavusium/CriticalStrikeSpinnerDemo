@@ -60,7 +60,7 @@ public class spin_minigame_manager : MonoBehaviour
     public void IncreaseSpinRound()
     {
         current_spin_round++;
-        ref_num_spins_text.text = "Round: " + current_spin_round + "Next: " + (current_spin_round + 1); 
+        ref_num_spins_text.text = "Round: " + current_spin_round + "Next: " + (current_spin_round + 1);
 
         SpinWheelZoneType next_zone_type;
 
@@ -88,15 +88,30 @@ public class spin_minigame_manager : MonoBehaviour
 
     public void AcquireAwardAtIndex(int index)
     {
-        collected_items.Add(current_awards.award_list[index]);
+        AwardEntry award = current_awards.award_list[index];
+
+        // We should check if the same award already exists in the collected_items list. If it does, we can just increase the amount.
+        int possible_index = collected_items.FindIndex(a => a.item_data.item_id == award.item_data.item_id); // Returns -1 if not found.
+
+        if (possible_index != -1)
+        {
+            // Item exists at collected_items[index]
+            collected_items[possible_index].amount += award.amount;
+
+            // Update the UI for that specific entry
+            ref_content_panel.transform.GetChild(possible_index).GetComponent<ui_comp_award_entry>().UpdateAmount(collected_items[possible_index].amount);
+
+            return;
+        }
+
+        // If the item doesn't exist, we add it to the list and create a new UI entry.
+
+        collected_items.Add(award);
         ui_comp_award_entry new_entry = Instantiate(prefab_content_entry, ref_content_panel.transform);
         new_entry.Setup(current_awards.award_list[index].item_data, current_awards.award_list[index].amount);
     }
 
-    private int CalculateReviveCost()
-    {
-        return base_revive_cost * (int)Mathf.Pow(revive_cost_multiplier, num_revives);
-    }
+
 
 
     private void SetZone(SpinWheelZoneType zone_type, bool forceSet = false)
@@ -114,6 +129,12 @@ public class spin_minigame_manager : MonoBehaviour
         // Handle the lose condition here
         Debug.Log("Player has lost the round.");
         // You can add additional logic for losing, such as showing a UI panel or deducting currency.
+    }
+
+
+    private int CalculateReviveCost()
+    {
+        return base_revive_cost * (int)Mathf.Pow(revive_cost_multiplier, num_revives);
     }
 
 
