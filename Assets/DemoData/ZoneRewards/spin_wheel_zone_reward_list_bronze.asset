@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4655638280049ed4ebf061d1081d0285, type: 3}
-  m_Name: spin_zone_awards_bronze
-  m_EditorClassIdentifier: Assembly-CSharp::spin_wheel_award_list
-  award_list:
-  - item_data: {fileID: 11400000, guid: eda7acc1514ecda4cac93613c78eccd3, type: 2}
-    amount: 0
-  - item_data: {fileID: 11400000, guid: 081d796c890b7c64cb58a302353bf507, type: 2}
-    amount: 1
-  - item_data: {fileID: 11400000, guid: eda7acc1514ecda4cac93613c78eccd3, type: 2}
-    amount: 0
-  - item_data: {fileID: 11400000, guid: 76a981f31c2960b4a874c353fd1e1874, type: 2}
-    amount: 3000
-  - item_data: {fileID: 11400000, guid: 5710278083852b54c96eafc6b4711073, type: 2}
-    amount: 3
-  - item_data: {fileID: 11400000, guid: 418fdb0b5a94f67448368f47344281b6, type: 2}
-    amount: 1
+  m_Name: spin_wheel_zone_reward_list_bronze
+  m_EditorClassIdentifier: Assembly-CSharp::spin_wheel_zone_reward_list
+  reward_list:
   - item_data: {fileID: 11400000, guid: eda7acc1514ecda4cac93613c78eccd3, type: 2}
     amount: 0
   - item_data: {fileID: 11400000, guid: 76a981f31c2960b4a874c353fd1e1874, type: 2}
     amount: 800
+  - item_data: {fileID: 11400000, guid: 6eec61714b787df40a386e0f764cf7a4, type: 2}
+    amount: 6
+  - item_data: {fileID: 11400000, guid: 6739274c65121d34cacb5ba290c56292, type: 2}
+    amount: 3
+  - item_data: {fileID: 11400000, guid: eda7acc1514ecda4cac93613c78eccd3, type: 2}
+    amount: 0
+  - item_data: {fileID: 11400000, guid: 5710278083852b54c96eafc6b4711073, type: 2}
+    amount: 5
+  - item_data: {fileID: 11400000, guid: 76a981f31c2960b4a874c353fd1e1874, type: 2}
+    amount: 3000
+  - item_data: {fileID: 11400000, guid: d3cd9212c0e27f847abe8a2dbbd950f1, type: 2}
+    amount: 1

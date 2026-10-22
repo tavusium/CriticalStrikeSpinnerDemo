@@ -6,6 +6,8 @@ public class ui_menu_minigame_button : MonoBehaviour
 {
 
     [SerializeField] private spin_minigame_manager ref_spin_minigame_manager;
+    [SerializeField] private AudioSource ref_audio_source;
+    [SerializeField] private AudioClip sfx_button_click;
 
     private Button ref_minigame_start_button;
 
@@ -14,6 +16,11 @@ public class ui_menu_minigame_button : MonoBehaviour
         if (ref_spin_minigame_manager == null)
         {
             ref_spin_minigame_manager = GameObject.Find("spin_minigame_manager").GetComponent<spin_minigame_manager>();
+        }
+
+        if (ref_audio_source == null)
+        {
+            ref_audio_source = GameObject.Find("audiosource_sfx").GetComponent<AudioSource>();
         }
 
     }
@@ -27,6 +34,7 @@ public class ui_menu_minigame_button : MonoBehaviour
 
     private void OnClickStartButton()
     {
+        ref_audio_source.PlayOneShot(sfx_button_click);
         ref_spin_minigame_manager.HandleStartMinigame();
     }
 }

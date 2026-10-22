@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: gold
   display_name: Golds
-  item_icon: {fileID: 952800183794916973, guid: 0e8d44b23e1ad3346a069a0c42e2d2d1, type: 3}
+  item_icon: {fileID: -3823703599125228522, guid: 06900562a6d9b8d4ca7d34cc834a93a3, type: 3}

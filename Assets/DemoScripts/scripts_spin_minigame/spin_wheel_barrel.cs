@@ -39,13 +39,13 @@ public class spin_wheel_barrel : MonoBehaviour
     }
 
 
-    public void ReconstructBarrel(spin_wheel_zone_award_list award_list)
+    public void ReconstructBarrel(spin_wheel_zone_reward_list reward_list)
     {
         for (int i = 0; i < 8; i++) // Assuming there are 8 slots on the barrel
         {
-            AwardEntry award = award_list.award_list[i];
-            slot_images[i].sprite = award.item_data.item_icon;
-            slot_amount_texts[i].text = award.item_data.item_id == "bomb" ? "" : "x" + award.amount.ToString();
+            RewardEntry reward = reward_list.reward_list[i];
+            slot_images[i].sprite = reward.item_data.item_icon;
+            slot_amount_texts[i].text = reward.item_data.item_id == "bomb" ? "" : "x" + reward.amount.ToString();
         }
 
     }

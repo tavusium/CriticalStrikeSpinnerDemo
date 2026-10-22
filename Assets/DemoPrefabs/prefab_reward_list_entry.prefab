@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 8138462559543814236}
   - component: {fileID: 3961427874857929888}
   m_Layer: 5
-  m_Name: prefab_award_list_entry
+  m_Name: prefab_reward_list_entry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

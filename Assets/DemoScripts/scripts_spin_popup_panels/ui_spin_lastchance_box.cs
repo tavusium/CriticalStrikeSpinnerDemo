@@ -24,7 +24,7 @@ public class ui_spin_lastchance_box : MonoBehaviour
 
     private void OnLoseClicked()
     {
-        ref_spin_minigame_manager.HandleLastChanceLose();
+        ref_spin_minigame_manager.HandleLastChanceGiveUp();
     }
 
     private void OnGoBackClicked()
