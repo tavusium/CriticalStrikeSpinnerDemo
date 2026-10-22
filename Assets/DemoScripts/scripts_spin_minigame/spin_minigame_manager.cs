@@ -8,9 +8,9 @@ public class spin_minigame_manager : MonoBehaviour
     [SerializeField] private GameObject ref_content_panel;
     [SerializeField] private GameObject ref_loseview_popup;
     [SerializeField] private GameObject ref_lastchance_popup;
-    [SerializeField] private TMP_Text ref_num_spins_text;
     [SerializeField] private TMP_Text ref_player_golds_text;
     [SerializeField] private Spin_Manager ref_spin_manager;
+    [SerializeField] private GameObject ref_ui_minigame;
 
     [Header("Prefab References")]
     [SerializeField] private ui_comp_award_entry prefab_content_entry;
@@ -35,7 +35,8 @@ public class spin_minigame_manager : MonoBehaviour
     private int revive_cost_multiplier = 2;
 
     [Header("External Data")]
-    [SerializeField] private int player_currency = 100; // Starting currency
+    [SerializeField] private int player_currency_cash = 8000;
+    [SerializeField] private int player_currency_gold = 500;
 
 
 
@@ -59,16 +60,13 @@ public class spin_minigame_manager : MonoBehaviour
 
         ref_loseview_popup.SetActive(false);
         ref_lastchance_popup.SetActive(false);
+        ref_ui_minigame.SetActive(false);
     }
-    private void Start()
-    {
-        SetZone(SpinWheelZoneType.RiskZone, true);
-    }
+
 
     public void IncreaseSpinRound()
     {
         current_spin_round++;
-        ref_num_spins_text.text = "Round: " + current_spin_round + "Next: " + (current_spin_round + 1);
 
         SpinWheelZoneType next_zone_type;
 
@@ -152,27 +150,29 @@ public class spin_minigame_manager : MonoBehaviour
     {
         Debug.Log("Player chose to revive with gold.");
         int revive_cost = CalculateReviveCost();
-        Debug.Log("Revive cost is: " + revive_cost + ". Player currency is: " + player_currency);
-        if (player_currency >= revive_cost)
+        Debug.Log("Revive cost is: " + revive_cost + ". Player currency is: " + player_currency_gold);
+        if (player_currency_gold >= revive_cost)
         {
-            player_currency -= revive_cost;
+            player_currency_gold -= revive_cost;
             num_revives++;
-            ref_player_golds_text.text = player_currency.ToString("N0");
+            ref_player_golds_text.text = player_currency_gold.ToString("N0");
             ref_loseview_popup.SetActive(false);
             ref_loseview_popup.GetComponent<ui_spin_loseview_box>().UpdateReviveCostText();
             // Allow the player to continue spinning
-            Debug.Log("Player revived with gold. Remaining currency: " + player_currency);
         }
         else
         {
-            Debug.Log("Not enough currency to revive. Required: " + revive_cost + ", Available: " + player_currency);
-            // Optionally, you can show a message to the player indicating they don't have enough currency.
+            // TODO: show a message to the player indicating they don't have enough currency.
         }
     }
 
     public void HandleReviveWithAd()
     {
         // To be implemented.
+
+        // Just revive for free for now.
+        ref_loseview_popup.SetActive(false);
+
     }
 
     public void HandleGiveUp()
@@ -182,7 +182,11 @@ public class spin_minigame_manager : MonoBehaviour
 
     public void HandleLastChanceLose()
     {
-        // Stop the game.
+        // Exit the minigame.
+
+        // Lose effects can be handled here if needed.
+
+        ExitMinigame();
     }
 
     public void HandleLastChanceGoBack()
@@ -190,6 +194,50 @@ public class spin_minigame_manager : MonoBehaviour
         ref_lastchance_popup.SetActive(false);
     }
 
+    public void HandleClaimRewardsAndExit()
+    {
+        // Here we handle the logic for claiming the rewards.
+        foreach (var item in collected_items)
+        {
+            Debug.Log($"Claimed {item.amount} of {item.item_data.item_id}");
+            // Add logic to add the item to the player's inventory or currency.
+        }
 
+        ExitMinigame();
+
+    }
+
+    private void ExitMinigame()
+    {
+        // Clear the collected items and reset the UI
+        collected_items.Clear();
+        foreach (Transform child in ref_content_panel.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        ref_ui_minigame.SetActive(false);
+        ref_loseview_popup.SetActive(false);
+        ref_lastchance_popup.SetActive(false);
+    }
+
+    public void HandleStartMinigame()
+    {
+        // Reset the minigame state
+        current_spin_round = 0;
+        num_revives = 0;
+        current_zone_type = SpinWheelZoneType.RiskZone;
+        current_awards = bronze_wheel_awards;
+
+        // Clear any previous collected items and UI entries. NOT ACTUALLY NECESSARY
+        collected_items.Clear();
+        foreach (Transform child in ref_content_panel.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        ref_ui_minigame.SetActive(true);
+        SetZone(SpinWheelZoneType.RiskZone, true);
+
+    }
 
 }
