@@ -28,4 +28,4 @@ MonoBehaviour:
   - item_data: {fileID: 11400000, guid: eda7acc1514ecda4cac93613c78eccd3, type: 2}
     amount: 0
   - item_data: {fileID: 11400000, guid: 76a981f31c2960b4a874c353fd1e1874, type: 2}
-    amount: 6000
+    amount: 800

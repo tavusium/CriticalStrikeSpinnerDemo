@@ -6,7 +6,7 @@ using TMPro;
 public class Spin_Manager : MonoBehaviour
 {
     [SerializeField]
-    private spin_minigame_manager minigame_manager;
+    private spin_minigame_manager ref_spin_minigame_manager;
 
     [Header("Spin Settings")]
     [SerializeField] private float spin_duration = 2.3f;
@@ -124,7 +124,7 @@ public class Spin_Manager : MonoBehaviour
             EnableSpinButton();
 
             // Get the landed item based on the landed index and the current awards from the minigame manager
-            AwardEntry landed_award = minigame_manager.current_awards.award_list[landed_index];
+            AwardEntry landed_award = ref_spin_minigame_manager.current_awards.award_list[landed_index];
 
             Debug.Log("Landed on item: " + landed_award.item_data.display_name + " with value: " + landed_award.amount);
 
@@ -143,14 +143,14 @@ public class Spin_Manager : MonoBehaviour
         if (landed_award.item_data.item_id != "bomb")
         {
             // Update the round.
-            minigame_manager.AcquireAwardAtIndex(landed_index);
-            minigame_manager.IncreaseSpinRound();
+            ref_spin_minigame_manager.AcquireAwardAtIndex(landed_index);
+            ref_spin_minigame_manager.IncreaseSpinRound();
         }
         else
         {
             // Handle bomb outcome (e.g., reset round, deduct points, etc.)
             spin_audio_source.PlayOneShot(snd_gunshot, 1f);
-            minigame_manager.TriggerLose();
+            ref_spin_minigame_manager.TriggerLose();
 
         }
     }

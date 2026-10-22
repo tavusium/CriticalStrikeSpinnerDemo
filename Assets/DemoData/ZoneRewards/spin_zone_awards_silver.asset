@@ -20,7 +20,7 @@ MonoBehaviour:
   - item_data: {fileID: 11400000, guid: 86df10a0e26129f459b457900274e3d1, type: 2}
     amount: 1
   - item_data: {fileID: 11400000, guid: 76a981f31c2960b4a874c353fd1e1874, type: 2}
-    amount: 10000
+    amount: 8000
   - item_data: {fileID: 11400000, guid: aaa035f834a017b41a2ff4a1fce412a2, type: 2}
     amount: 1
   - item_data: {fileID: 11400000, guid: b588223dfcf70ae4ca50bb955331545b, type: 2}

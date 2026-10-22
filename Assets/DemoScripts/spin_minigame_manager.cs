@@ -6,6 +6,8 @@ public class spin_minigame_manager : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private GameObject ref_content_panel;
+    [SerializeField] private GameObject ref_loseview_popup;
+    [SerializeField] private GameObject ref_lastchance_popup;
     [SerializeField] private TMP_Text ref_num_spins_text;
     [SerializeField] private TMP_Text ref_player_golds_text;
     [SerializeField] private Spin_Manager ref_spin_manager;
@@ -35,12 +37,15 @@ public class spin_minigame_manager : MonoBehaviour
     [Header("External Data")]
     [SerializeField] private int player_currency = 100; // Starting currency
 
+
+
+
+
+    // Minigame variables
     private SpinWheelZoneType current_zone_type = SpinWheelZoneType.RiskZone;
     private int current_spin_round = 0;
     public spin_wheel_zone_award_list current_awards;
-
     private int num_revives = 0;
-
     private int safe_per_rounds = 3; // Every 5 rounds, the player enters a safe zone
     private int super_per_rounds = 6; // Every 30 rounds, the player enters a super zone
 
@@ -50,8 +55,14 @@ public class spin_minigame_manager : MonoBehaviour
     private void OnValidate()
     {
         current_awards = bronze_wheel_awards; // Default to bronze awards
+
     }
 
+    private void Awake()
+    {
+        ref_loseview_popup.SetActive(false);
+        ref_lastchance_popup.SetActive(false);
+    }
     private void Start()
     {
         SetZone(SpinWheelZoneType.RiskZone, true);
@@ -105,8 +116,7 @@ public class spin_minigame_manager : MonoBehaviour
         }
 
         // If the item doesn't exist, we add it to the list and create a new UI entry.
-
-        collected_items.Add(award);
+        collected_items.Add(new AwardEntry { item_data = award.item_data, amount = award.amount });
         ui_comp_award_entry new_entry = Instantiate(prefab_content_entry, ref_content_panel.transform);
         new_entry.Setup(current_awards.award_list[index].item_data, current_awards.award_list[index].amount);
     }
@@ -120,7 +130,7 @@ public class spin_minigame_manager : MonoBehaviour
 
         current_zone_type = zone_type;
         ref_spin_manager.SetZoneType(zone_type, current_awards);
-        Debug.Log("Zone changed to: " + current_zone_type.ToString());
+        //Debug.Log("Zone changed to: " + current_zone_type.ToString());
 
     }
 
@@ -128,14 +138,61 @@ public class spin_minigame_manager : MonoBehaviour
     {
         // Handle the lose condition here
         Debug.Log("Player has lost the round.");
-        // You can add additional logic for losing, such as showing a UI panel or deducting currency.
+        // We can add additional logic for losing, such as showing a UI panel or deducting currency.
+        ref_loseview_popup.GetComponent<ui_spin_loseview_box>().ShowLoseView();
     }
 
 
-    private int CalculateReviveCost()
+    public int CalculateReviveCost()
     {
         return base_revive_cost * (int)Mathf.Pow(revive_cost_multiplier, num_revives);
     }
+
+
+
+    // Popup handling methods
+    public void HandleReviveWithGold()
+    {
+        Debug.Log("Player chose to revive with gold.");
+        int revive_cost = CalculateReviveCost();
+        Debug.Log("Revive cost is: " + revive_cost + ". Player currency is: " + player_currency);
+        if (player_currency >= revive_cost)
+        {
+            player_currency -= revive_cost;
+            num_revives++;
+            ref_player_golds_text.text = player_currency.ToString("N0");
+            ref_loseview_popup.SetActive(false);
+            ref_loseview_popup.GetComponent<ui_spin_loseview_box>().UpdateReviveCostText();
+            // Allow the player to continue spinning
+            Debug.Log("Player revived with gold. Remaining currency: " + player_currency);
+        }
+        else
+        {
+            Debug.Log("Not enough currency to revive. Required: " + revive_cost + ", Available: " + player_currency);
+            // Optionally, you can show a message to the player indicating they don't have enough currency.
+        }
+    }
+
+    public void HandleReviveWithAd()
+    {
+        // To be implemented.
+    }
+
+    public void HandleGiveUp()
+    {
+        ref_lastchance_popup.SetActive(true);
+    }
+
+    public void HandleLastChanceLose()
+    {
+        // Stop the game.
+    }
+
+    public void HandleLastChanceGoBack()
+    {
+        ref_lastchance_popup.SetActive(false);
+    }
+
 
 
 }
