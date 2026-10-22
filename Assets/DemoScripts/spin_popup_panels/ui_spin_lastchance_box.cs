@@ -4,14 +4,14 @@ using UnityEngine.UI;
 public class ui_spin_lastchance_box : MonoBehaviour
 {
     [SerializeField] private spin_minigame_manager ref_spin_minigame_manager;
-    private Button ref_button_lastchance_lose;
-    private Button ref_button_lastchance_goback;
+    [SerializeField] private Button ref_button_lastchance_lose;
+    [SerializeField] private Button ref_button_lastchance_goback;
 
 
     private void OnValidate()
     {
-        ref_button_lastchance_lose = transform.Find("UI_lastchance_button_lose").GetComponent<Button>();
-        ref_button_lastchance_goback = transform.Find("UI_lastchance_button_goback").GetComponent<Button>();
+        ref_button_lastchance_lose = GameObject.Find("UI_lastchance_button_lose").GetComponent<Button>();
+        ref_button_lastchance_goback = GameObject.Find("UI_lastchance_button_goback").GetComponent<Button>();
     }
 
 

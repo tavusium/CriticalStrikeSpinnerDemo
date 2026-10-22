@@ -28,18 +28,15 @@ public class Spin_Manager : MonoBehaviour
     [SerializeField]
     private AudioClip snd_gold_collect;
 
-    private GameObject ref_wheel_collection;
-    private GameObject ref_wheel_barrel;
-    private spin_wheel_barrel ref_wheel_barrel_component;
-    private TMP_Text ref_wheel_title_tmp;
-    private TMP_Text ref_wheel_description_tmp;
-    private Image ref_wheel_indicator_image;
 
-
-
-
-
-    private Button ref_spin_button; // offload this to minigame manager
+    [Header("UI References")]
+    [SerializeField] private GameObject ref_wheel_collection;
+    [SerializeField] private GameObject ref_wheel_barrel;
+    [SerializeField] private spin_wheel_barrel ref_wheel_barrel_component;
+    [SerializeField] private TMP_Text ref_wheel_title_tmp;
+    [SerializeField] private TMP_Text ref_wheel_description_tmp;
+    [SerializeField] private Image ref_wheel_indicator_image;
+    [SerializeField] private Button ref_spin_button; // offload this to minigame manager
 
 
 
@@ -66,6 +63,7 @@ public class Spin_Manager : MonoBehaviour
     {
         ref_spin_button.onClick.AddListener(SpinWheel);
     }
+
 
     public void SetZoneType(SpinWheelZoneType zone_type, spin_wheel_zone_award_list awards)
     {

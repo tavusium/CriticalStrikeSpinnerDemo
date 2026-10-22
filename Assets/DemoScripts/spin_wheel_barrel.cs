@@ -14,7 +14,7 @@ public class spin_wheel_barrel : MonoBehaviour
 
 
 
-    private void OnValidate()
+    private void Awake()
     {
         GetSlotComponents();
     }

@@ -52,14 +52,11 @@ public class spin_minigame_manager : MonoBehaviour
     private List<AwardEntry> collected_items = new List<AwardEntry>();
 
 
-    private void OnValidate()
-    {
-        current_awards = bronze_wheel_awards; // Default to bronze awards
-
-    }
 
     private void Awake()
     {
+        current_awards = bronze_wheel_awards; // Default to bronze awards
+
         ref_loseview_popup.SetActive(false);
         ref_lastchance_popup.SetActive(false);
     }

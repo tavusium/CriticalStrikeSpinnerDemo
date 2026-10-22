@@ -8,21 +8,20 @@ public class ui_spin_loseview_box : MonoBehaviour
 
     [SerializeField] private spin_minigame_manager ref_spin_minigame_manager;
 
-    private Button ref_button_loseview_giveup;
-    private Button ref_button_loseview_revive_gold;
-    private Button ref_button_loseview_revive_ad;
+    [SerializeField] private Button ref_button_loseview_giveup;
+    [SerializeField] private Button ref_button_loseview_revive_gold;
+    [SerializeField] private Button ref_button_loseview_revive_ad;
 
-    private TMP_Text ref_text_loseview_revive_cost_text;
+    [SerializeField] private TMP_Text ref_text_loseview_revive_cost_text;
 
 
 
     private void OnValidate()
     {
-        ref_button_loseview_giveup = transform.Find("UI_loseview_button_giveup").GetComponent<Button>();
-        ref_button_loseview_revive_gold = transform.Find("UI_loseview_button_revive_gold").GetComponent<Button>();
-        ref_button_loseview_revive_ad = transform.Find("UI_loseview_button_revive_ad").GetComponent<Button>();
-        ref_text_loseview_revive_cost_text = ref_button_loseview_revive_gold.transform
-                                    .Find("UI_loseview_button_revive_gold_value").GetComponent<TMP_Text>();
+        ref_button_loseview_giveup = GameObject.Find("UI_loseview_button_giveup").GetComponent<Button>();
+        ref_button_loseview_revive_gold = GameObject.Find("UI_loseview_button_revive_gold").GetComponent<Button>();
+        ref_button_loseview_revive_ad = GameObject.Find("UI_loseview_button_revive_ad").GetComponent<Button>();
+        ref_text_loseview_revive_cost_text = GameObject.Find("UI_loseview_button_revive_gold_value").GetComponent<TMP_Text>();
     }
 
 
