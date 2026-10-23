@@ -25,6 +25,7 @@ public class spin_wheel_barrel : MonoBehaviour
 
         foreach (Transform child in transform)
         {
+
             Image img = child.GetComponent<Image>();
             if (img != null)
             {

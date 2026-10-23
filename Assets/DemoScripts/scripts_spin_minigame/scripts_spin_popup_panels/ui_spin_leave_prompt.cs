@@ -24,6 +24,7 @@ public class ui_spin_leave_prompt : MonoBehaviour
 
     private void OnClaimClicked()
     {
+        Debug.Log("Player has chosen to claim rewards and exit the minigame.");
         ref_spin_minigame_manager.HandleClaimRewardsAndExit();
     }
 

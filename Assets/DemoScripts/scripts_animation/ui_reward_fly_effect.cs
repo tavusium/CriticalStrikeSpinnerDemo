@@ -27,10 +27,10 @@ public class ui_reward_fly_effect : MonoBehaviour
 
             seq.Append(rect.DOAnchorPos(burst_vector, 0.5f).SetEase(Ease.OutSine));
             seq.Join(rect.DOScale(1.25f, 0.3f).SetEase(Ease.OutSine));
+            seq.Join(rect.DOAnchorPos(effectLayer.InverseTransformPoint(target.position), 0.8f).SetEase(Ease.InOutSine).SetDelay(0.3f + i * 0.04f));
 
-            seq.AppendInterval(i * 0.04f); // Each icon will have a slight delay before moving to the target
+            //seq.AppendInterval(i * 0.04f); // Each icon will have a slight delay before moving to the target
 
-            seq.Append(rect.DOAnchorPos(effectLayer.InverseTransformPoint(target.position), 0.8f).SetEase(Ease.InOutSine));
             seq.Join(rect.DOScale(0.4f, 0.5f).SetDelay(0.2f));
             seq.Join(icon.DOFade(0f, 0.5f).SetDelay(0.2f));
 

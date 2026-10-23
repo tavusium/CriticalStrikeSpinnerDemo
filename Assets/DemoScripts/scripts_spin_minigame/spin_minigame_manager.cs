@@ -10,34 +10,32 @@ public class spin_minigame_manager : MonoBehaviour
     [SerializeField] private GameObject ref_loseview_popup;
     [SerializeField] private GameObject ref_lastchance_popup;
     [SerializeField] private GameObject ref_leave_popup;
-    [SerializeField] private TMP_Text ref_player_golds_text;
-    [SerializeField] private Spin_Manager ref_spin_manager;
     [SerializeField] private GameObject ref_ui_minigame;
+
+    [Header("External Managers")]
+    [SerializeField] private Spin_Manager ref_spin_manager;
+    [SerializeField] private player_currency_manager ref_player_currency_manager;
+    [SerializeField] private spin_zone_manager ref_spin_zone_manager;
+    [SerializeField] private spin_counter_manager ref_spin_counter_manager;
 
     [Header("Prefab References")]
     [SerializeField] private ui_comp_award_entry prefab_content_entry;
 
 
     [Header("Award Lists")]
-    [SerializeField]
-    private spin_wheel_zone_reward_list bronze_wheel_rewards;
+    [SerializeField] private spin_wheel_zone_reward_list bronze_wheel_rewards;
 
-    [SerializeField]
-    private spin_wheel_zone_reward_list silver_wheel_rewards;
+    [SerializeField] private spin_wheel_zone_reward_list silver_wheel_rewards;
 
-    [SerializeField]
-    private spin_wheel_zone_reward_list gold_wheel_rewards;
+    [SerializeField] private spin_wheel_zone_reward_list gold_wheel_rewards;
 
 
     [Header("Minigame Settings")]
-    [SerializeField]
-    private int base_revive_cost = 25;
+    [SerializeField] private int base_revive_cost = 25;
 
-    [SerializeField]
-    private int revive_cost_multiplier = 2;
+    [SerializeField] private int revive_cost_multiplier = 2;
 
     [Header("Audio")]
-
     [SerializeField] private AudioSource ref_audio_source;
 
     [SerializeField] private AudioClip sfx_revive;
@@ -49,12 +47,6 @@ public class spin_minigame_manager : MonoBehaviour
 
 
 
-    [Header("External Data")]
-    // These values can be used from an external source, 
-    // such as a player profile or game manager.
-    [SerializeField] private int player_currency_cash = 8000;
-    [SerializeField] private int player_currency_gold = 500;
-
 
 
 
@@ -64,19 +56,16 @@ public class spin_minigame_manager : MonoBehaviour
     private int current_spin_round = 0;
     public spin_wheel_zone_reward_list current_rewards;
     private int num_revives = 0;
-    private int safe_per_rounds = 4; // Every 5 rounds, the player enters a safe zone
-    private int super_per_rounds = 8; // Every 30 rounds, the player enters a super zone
+    private readonly int safe_per_rounds = 3; // Every 5 rounds, the player enters a safe zone
+    private readonly int super_per_rounds = 9; // Every 30 rounds, the player enters a super zone
 
-    private List<RewardEntry> collected_items = new List<RewardEntry>();
+    private readonly List<RewardEntry> collected_items = new();
 
 
 
     private void OnValidate()
     {
-        if (ref_audio_source == null)
-        {
-            ref_audio_source = GameObject.Find("audiosource_sfx").GetComponent<AudioSource>();
-        }
+        ref_audio_source = GameObject.Find("audiosource_sfx").GetComponent<AudioSource>();
     }
 
 
@@ -116,7 +105,8 @@ public class spin_minigame_manager : MonoBehaviour
             next_zone_type = SpinWheelZoneType.RiskZone;
             current_rewards = bronze_wheel_rewards;
         }
-
+        ref_spin_zone_manager.UpdateZoneBoxes(next_zone_type, current_spin_round, safe_per_rounds, super_per_rounds);
+        ref_spin_counter_manager.Increment(safe_per_rounds, super_per_rounds);
         SetZone(next_zone_type);
     }
 
@@ -186,14 +176,13 @@ public class spin_minigame_manager : MonoBehaviour
     // Popup handling methods
     public void HandleReviveWithGold()
     {
-        Debug.Log("Player chose to revive with gold.");
+        int player_gold = ref_player_currency_manager.GetPlayerGold();
         int revive_cost = CalculateReviveCost();
-        Debug.Log("Revive cost is: " + revive_cost + ". Player currency is: " + player_currency_gold);
-        if (player_currency_gold >= revive_cost)
+        if (player_gold >= revive_cost)
         {
-            player_currency_gold -= revive_cost;
+            ref_player_currency_manager.UpdatePlayerGold(player_gold - revive_cost);
+
             num_revives++;
-            ref_player_golds_text.text = player_currency_gold.ToString("N0");
 
 
             ref_loseview_popup.GetComponent<ui_spin_loseview_box>().AnimateHide();
@@ -260,10 +249,25 @@ public class spin_minigame_manager : MonoBehaviour
     public void HandleClaimRewardsAndExit() // Leave button used.
     {
         // Here we handle the logic for claiming the rewards.
-        foreach (var item in collected_items)
+        foreach (RewardEntry item in collected_items)
         {
             Debug.Log($"Claimed {item.amount} of {item.item_data.item_id}");
+
             // Add logic to add the item to the player's inventory or currency.
+            if (item.item_data.item_id == "cash")
+            {
+                int current_cash = ref_player_currency_manager.GetPlayerCash();
+                ref_player_currency_manager.UpdatePlayerCash(current_cash + item.amount);
+            }
+            else if (item.item_data.item_id == "gold")
+            {
+                int current_gold = ref_player_currency_manager.GetPlayerGold();
+                ref_player_currency_manager.UpdatePlayerGold(current_gold + item.amount);
+            }
+            else
+            {
+                // Handle other item types if necessary.
+            }
         }
 
         ref_audio_source.PlayOneShot(sfx_leave, 1f);
@@ -284,6 +288,7 @@ public class spin_minigame_manager : MonoBehaviour
         ref_lastchance_popup.SetActive(false);
         ref_leave_popup.SetActive(false);
         ref_spin_manager.DisableLeaveButton();
+
     }
 
     public void HandleStartMinigame()
@@ -301,6 +306,7 @@ public class spin_minigame_manager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        ref_spin_zone_manager.UpdateZoneBoxes(SpinWheelZoneType.RiskZone, 0, safe_per_rounds, super_per_rounds);
         ref_ui_minigame.SetActive(true);
         SetZone(SpinWheelZoneType.RiskZone, true);
         ref_spin_manager.EnableLeaveButton();
