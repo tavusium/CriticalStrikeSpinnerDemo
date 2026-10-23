@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,9 @@ public class ui_spin_loseview_box : MonoBehaviour
 
     [SerializeField] private TMP_Text ref_text_loseview_revive_cost_text;
 
+    [SerializeField] private GameObject ref_loseview_text_box;
+    [SerializeField] private GameObject ref_loseview_card;
+
 
 
     private void OnValidate()
@@ -22,6 +26,8 @@ public class ui_spin_loseview_box : MonoBehaviour
         ref_button_loseview_revive_gold = GameObject.Find("UI_loseview_button_revive_gold").GetComponent<Button>();
         ref_button_loseview_revive_ad = GameObject.Find("UI_loseview_button_revive_ad").GetComponent<Button>();
         ref_text_loseview_revive_cost_text = GameObject.Find("UI_loseview_button_revive_gold_value").GetComponent<TMP_Text>();
+        ref_loseview_text_box = GameObject.Find("UI_loseview_text_box");
+        ref_loseview_card = GameObject.Find("UI_loseview_center_image_box");
     }
 
 
@@ -36,10 +42,48 @@ public class ui_spin_loseview_box : MonoBehaviour
 
     }
 
+    private void AnimateShow()
+    {
+        GetComponent<Image>().DOFade(1f, 0.25f)
+            .SetEase(Ease.Linear);
+
+        ref_loseview_card.GetComponent<Image>().DOFade(1f, 0.10f)
+            .SetEase(Ease.Linear);
+
+        ref_loseview_text_box.transform.SetLocalPositionAndRotation(new Vector3(0, 1600, 0), Quaternion.identity);
+        ref_loseview_text_box.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0, 0, 0), 0.75f)
+            .SetEase(Ease.OutSine);
+
+        ref_loseview_card.transform.SetLocalPositionAndRotation(new Vector3(0, -1600f, 0), Quaternion.identity);
+        ref_loseview_card.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0, -30f, 0), 0.15f)
+            .SetEase(Ease.Linear);
+    }
+
+    public void AnimateHide()
+    {
+        GetComponent<Image>().DOFade(0f, 0.35f)
+            .SetEase(Ease.Linear);
+
+        ref_loseview_text_box.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0, 1600, 0), 0.75f)
+            .SetEase(Ease.InSine);
+
+        ref_loseview_card.GetComponent<Image>().DOFade(0f, 0.10f)
+            .SetEase(Ease.Linear);
+        ref_loseview_card.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0, -1600f, 0), 0.15f)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                gameObject.SetActive(false);
+                UpdateReviveCostText();
+            });
+    }
+
+
 
     public void ShowLoseView()
     {
         gameObject.SetActive(true);
+        AnimateShow();
         UpdateReviveCostText();
     }
 

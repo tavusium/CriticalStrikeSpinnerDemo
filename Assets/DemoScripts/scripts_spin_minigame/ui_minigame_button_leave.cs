@@ -30,6 +30,6 @@ public class ui_minigame_button_leave : MonoBehaviour
     private void OnClickLeaveButton()
     {
         Debug.Log("Leave button clicked.");
-        ref_spin_minigame_manager.HandleClaimRewardsAndExit();
+        ref_spin_minigame_manager.HandleLeave();
     }
 }

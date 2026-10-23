@@ -9,6 +9,7 @@ public class spin_minigame_manager : MonoBehaviour
     [SerializeField] private GameObject ref_content_panel;
     [SerializeField] private GameObject ref_loseview_popup;
     [SerializeField] private GameObject ref_lastchance_popup;
+    [SerializeField] private GameObject ref_leave_popup;
     [SerializeField] private TMP_Text ref_player_golds_text;
     [SerializeField] private Spin_Manager ref_spin_manager;
     [SerializeField] private GameObject ref_ui_minigame;
@@ -86,6 +87,7 @@ public class spin_minigame_manager : MonoBehaviour
 
         ref_loseview_popup.SetActive(false);
         ref_lastchance_popup.SetActive(false);
+        ref_leave_popup.SetActive(false);
         ref_ui_minigame.SetActive(false);
     }
 
@@ -192,8 +194,9 @@ public class spin_minigame_manager : MonoBehaviour
             player_currency_gold -= revive_cost;
             num_revives++;
             ref_player_golds_text.text = player_currency_gold.ToString("N0");
-            ref_loseview_popup.SetActive(false);
-            ref_loseview_popup.GetComponent<ui_spin_loseview_box>().UpdateReviveCostText();
+
+
+            ref_loseview_popup.GetComponent<ui_spin_loseview_box>().AnimateHide();
 
             ref_audio_source.PlayOneShot(sfx_revive, 1f);
 
@@ -236,6 +239,18 @@ public class spin_minigame_manager : MonoBehaviour
         ExitMinigame();
     }
 
+    public void HandleLeave()
+    {
+        ref_audio_source.PlayOneShot(sfx_leave, 1f);
+        ref_leave_popup.SetActive(true);
+    }
+
+    public void HandleLeaveGoBack()
+    {
+        ref_audio_source.PlayOneShot(sfx_goback, 1f);
+        ref_leave_popup.SetActive(false);
+    }
+
     public void HandleLastChanceGoBack()
     {
         ref_audio_source.PlayOneShot(sfx_goback, 1f);
@@ -267,6 +282,7 @@ public class spin_minigame_manager : MonoBehaviour
         ref_ui_minigame.SetActive(false);
         ref_loseview_popup.SetActive(false);
         ref_lastchance_popup.SetActive(false);
+        ref_leave_popup.SetActive(false);
         ref_spin_manager.DisableLeaveButton();
     }
 

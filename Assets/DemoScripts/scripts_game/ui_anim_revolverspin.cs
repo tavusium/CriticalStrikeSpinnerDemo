@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class ui_anim_revolverSpin : MonoBehaviour
+public class ui_anim_revolverspin : MonoBehaviour
 {
 
 
