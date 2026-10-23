@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: chest_silver
   display_name: Silver Chest
-  item_icon: {fileID: -2733076883953118537, guid: d2c44a113e17b434ca5c3779d734cc13, type: 3}
+  item_icon: {fileID: -2329269481691633362, guid: 583ce00d7dc79f443a1fa20f4835fad9, type: 3}

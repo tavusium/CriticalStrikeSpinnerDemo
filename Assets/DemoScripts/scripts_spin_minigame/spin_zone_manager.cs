@@ -16,22 +16,25 @@ public class spin_zone_manager : MonoBehaviour
     private SpinWheelZoneType current_zone_type = SpinWheelZoneType.RiskZone;
 
 
-
-    public void UpdateZoneBoxes(SpinWheelZoneType zone_type, int current_round, int safe_per_rounds, int super_per_rounds)
+    public void UpdateZoneBoxes(
+        SpinWheelZoneType zone_type,
+        int current_round,
+        int safe_per_rounds,
+        int super_per_rounds)
     {
+        int next_safe_round =
+            ((current_round - 1) / safe_per_rounds + 1) * safe_per_rounds;
 
-        // Maybe add some animation here.
+        int next_super_round =
+            ((current_round - 1) / super_per_rounds + 1) * super_per_rounds;
 
-        int next_safe_round = current_round / safe_per_rounds * safe_per_rounds + safe_per_rounds + current_round / super_per_rounds;
-        int next_super_round = current_round / super_per_rounds * super_per_rounds + super_per_rounds;
-        if (next_super_round == next_safe_round) next_safe_round += safe_per_rounds; // Ensure that the next safe round is not the same as the next super round
+        if (next_safe_round == next_super_round)
+            next_safe_round += safe_per_rounds;
 
         ref_safe_zone_value.text = next_safe_round.ToString();
         ref_super_zone_value.text = next_super_round.ToString();
 
-
         current_zone_type = zone_type;
     }
-
 
 }

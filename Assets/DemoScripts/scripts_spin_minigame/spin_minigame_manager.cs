@@ -53,7 +53,7 @@ public class spin_minigame_manager : MonoBehaviour
 
     // Minigame variables
     private SpinWheelZoneType current_zone_type = SpinWheelZoneType.RiskZone;
-    private int current_spin_round = 0;
+    private int current_spin_round = 1;
     public spin_wheel_zone_reward_list current_rewards;
     private int num_revives = 0;
     private readonly int safe_per_rounds = 3; // Every 5 rounds, the player enters a safe zone
@@ -78,26 +78,27 @@ public class spin_minigame_manager : MonoBehaviour
         ref_lastchance_popup.SetActive(false);
         ref_leave_popup.SetActive(false);
         ref_ui_minigame.SetActive(false);
+        ref_spin_counter_manager.ResetSpinCounter(safe_per_rounds, super_per_rounds);
     }
 
 
-    public void IncreaseSpinRound()
+    public void IncreaseSpinRound() //This is always called after a spin is completed.
     {
         current_spin_round++;
 
         SpinWheelZoneType next_zone_type;
 
-        if ((current_spin_round + 1) % safe_per_rounds == 0 && (current_spin_round + 1) % super_per_rounds != 0)
-        {
-            // Safe Zone
-            next_zone_type = SpinWheelZoneType.SafeZone;
-            current_rewards = silver_wheel_rewards;
-        }
-        else if ((current_spin_round + 1) % super_per_rounds == 0)
+        if (current_spin_round % super_per_rounds == 0)
         {
             // Super Zone
             next_zone_type = SpinWheelZoneType.SuperZone;
             current_rewards = gold_wheel_rewards;
+        }
+        else if (current_spin_round % safe_per_rounds == 0)
+        {
+            // Safe Zone
+            next_zone_type = SpinWheelZoneType.SafeZone;
+            current_rewards = silver_wheel_rewards;
         }
         else
         {
@@ -106,7 +107,7 @@ public class spin_minigame_manager : MonoBehaviour
             current_rewards = bronze_wheel_rewards;
         }
         ref_spin_zone_manager.UpdateZoneBoxes(next_zone_type, current_spin_round, safe_per_rounds, super_per_rounds);
-        ref_spin_counter_manager.Increment(safe_per_rounds, super_per_rounds);
+        ref_spin_counter_manager.Increment(current_spin_round, safe_per_rounds, super_per_rounds);
         SetZone(next_zone_type);
     }
 
@@ -228,7 +229,7 @@ public class spin_minigame_manager : MonoBehaviour
         ExitMinigame();
     }
 
-    public void HandleLeave()
+    public void HandleLeaveButton()
     {
         ref_audio_source.PlayOneShot(sfx_leave, 1f);
         ref_leave_popup.SetActive(true);
@@ -288,13 +289,16 @@ public class spin_minigame_manager : MonoBehaviour
         ref_lastchance_popup.SetActive(false);
         ref_leave_popup.SetActive(false);
         ref_spin_manager.DisableLeaveButton();
+        ref_spin_counter_manager.ResetSpinCounter(safe_per_rounds, super_per_rounds);
+        SetZone(SpinWheelZoneType.RiskZone, true);
+
 
     }
 
     public void HandleStartMinigame()
     {
         // Reset the minigame state
-        current_spin_round = 0;
+        current_spin_round = 1;
         num_revives = 0;
         current_zone_type = SpinWheelZoneType.RiskZone;
         current_rewards = bronze_wheel_rewards;

@@ -51,7 +51,7 @@ public class ui_spin_loseview_box : MonoBehaviour
             .SetEase(Ease.Linear);
 
         ref_loseview_text_box.transform.SetLocalPositionAndRotation(new Vector3(0, 1600, 0), Quaternion.identity);
-        ref_loseview_text_box.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0, 0, 0), 0.75f)
+        ref_loseview_text_box.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0, -120f, 0), 0.75f)
             .SetEase(Ease.OutSine);
 
         ref_loseview_card.transform.SetLocalPositionAndRotation(new Vector3(0, -1600f, 0), Quaternion.identity);

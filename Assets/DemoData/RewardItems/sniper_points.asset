@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: sniper_points
   display_name: Sniper Points
-  item_icon: {fileID: -2243273156050388040, guid: c4c3cc10c98822e4b962e792c6d6d6c4, type: 3}
+  item_icon: {fileID: -7945518785706051274, guid: 1cf661a7645626644b2d2a21a803ed45, type: 3}

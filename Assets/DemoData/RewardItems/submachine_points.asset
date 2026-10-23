@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: submachine_points
   display_name: Submachine Points
-  item_icon: {fileID: -9176328233517467004, guid: acd6282a6da9ab946b3f79efc791e080, type: 3}
+  item_icon: {fileID: -8792952003602973859, guid: 6ba1046805b66b44a8cc628d4530069a, type: 3}

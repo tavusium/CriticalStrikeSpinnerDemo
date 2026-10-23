@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: chest_gold
   display_name: Gold Chest
-  item_icon: {fileID: -4875417417886520195, guid: 0f643575d1db7f042a080aaf3a70c8de, type: 3}
+  item_icon: {fileID: 5026856798604128115, guid: a7cfbba306991564f944183e64bc6c08, type: 3}

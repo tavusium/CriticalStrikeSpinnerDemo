@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: chest_small
   display_name: Small Chest
-  item_icon: {fileID: -4379012504692226635, guid: 38bbe8317addb9c488a0b3388b57356b, type: 3}
+  item_icon: {fileID: 4795384191674714579, guid: aedcd248494a30e4d9bcd36051293709, type: 3}

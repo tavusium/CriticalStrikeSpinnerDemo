@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: shotgun_points
   display_name: Shotgun Points
-  item_icon: {fileID: 2406621693580753259, guid: 8f45c5ba9c7f1ca44a0b33cbc2785e95, type: 3}
+  item_icon: {fileID: 2286349338612529309, guid: a3202f217c37d2f47a8f02d73b36dc00, type: 3}

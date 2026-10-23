@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: chest_super
   display_name: Super Chest
-  item_icon: {fileID: -5371827261078721444, guid: e537f0037dac36e449503df661d9854e, type: 3}
+  item_icon: {fileID: 2007470547269033222, guid: f715e6ff4d1e4dd4592d6ad7203da0a4, type: 3}

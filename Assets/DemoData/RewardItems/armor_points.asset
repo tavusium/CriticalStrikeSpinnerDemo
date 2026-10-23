@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: armor_points
   display_name: Armor Points
-  item_icon: {fileID: -64891307874697501, guid: 10dc52d29fd507e47b80a7e1ee18672f, type: 3}
+  item_icon: {fileID: -3627836035978286981, guid: 9ccba46434c16de4195fbed7770303a4, type: 3}

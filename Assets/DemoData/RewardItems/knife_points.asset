@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: knife_points
   display_name: Knife Points
-  item_icon: {fileID: 1742066445721694904, guid: 736d5eea1f3249a48a33b2b1258ae814, type: 3}
+  item_icon: {fileID: 4553666551334449874, guid: f2e7092a869e94e4eb67b46e76193c31, type: 3}

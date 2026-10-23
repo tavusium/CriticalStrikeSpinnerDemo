@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: chest_big
   display_name: Big Chest
-  item_icon: {fileID: -4939823803957887640, guid: a063c3796963f4c4e907f2e2e957f802, type: 3}
+  item_icon: {fileID: -4484712888270843647, guid: 9d753d22ea865b043abdba7d496651aa, type: 3}

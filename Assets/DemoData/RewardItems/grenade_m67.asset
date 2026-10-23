@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: grenade_m67
   display_name: M67
-  item_icon: {fileID: -8436940113609446805, guid: 833032fd4fcc19446a1d823c8f40a3c8, type: 3}
+  item_icon: {fileID: 4918657833184530095, guid: 15cf9d3593a6c9d4ab1b1ee99d2c9313, type: 3}

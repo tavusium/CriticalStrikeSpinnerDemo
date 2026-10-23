@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: pistol_points
   display_name: Pistol Points
-  item_icon: {fileID: 95983631781727552, guid: c865024b0214c554c84166be41f01461, type: 3}
+  item_icon: {fileID: 1729081090340136888, guid: 9879f773de378404b81220fedb959d77, type: 3}

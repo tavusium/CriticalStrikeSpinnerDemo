@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: vest_points
   display_name: Vest Points
-  item_icon: {fileID: -3594919974255840254, guid: 9c6866b8afb2c2f479351aab755d5ae8, type: 3}
+  item_icon: {fileID: -2185946192342508019, guid: 8141dc40370012349acc620c84f7ea35, type: 3}

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: smg_points
   display_name: SMG Points
-  item_icon: {fileID: 4302927716473386306, guid: 193d77ddd44a8d64ab68e9d4d19ef332, type: 3}
+  item_icon: {fileID: -3075865980929577406, guid: 3733c587731345c43aaef5f54fede4aa, type: 3}

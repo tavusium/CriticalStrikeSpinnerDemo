@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spin_award_item_data
   item_id: chest_bronze
   display_name: Bronze Chest
-  item_icon: {fileID: -8731708261444831326, guid: 22bd48825eeed134485e3dfb732a6fe9, type: 3}
+  item_icon: {fileID: -5565546922251183214, guid: 1aa3ec601a48c414e9027514545c57f4, type: 3}
