@@ -81,8 +81,19 @@ public class Spin_Manager : MonoBehaviour
     }
 
 
-    public void SetZoneType(SpinWheelZoneType zone_type, spin_wheel_zone_reward_list rewards)
+    public void SetZoneType(SpinWheelZoneType zone_type, spin_wheel_zone_reward_list rewards, bool is_silent = false)
     {
+
+        if (is_silent)
+        {
+            // Update the wheel's appearance and data based on the zone type
+            ref_wheel_barrel_component.ReconstructBarrel(rewards);
+            SwitchWheelZoneUI(zone_type);
+            return;
+        }
+
+
+
         // Update the wheel's appearance and data based on the zone type
         DisableSpinButton();
         ref_wheel_barrel_component.ReconstructBarrel(rewards);
@@ -162,7 +173,6 @@ public class Spin_Manager : MonoBehaviour
             // Update the round.
             ui_comp_award_entry entry = ref_spin_minigame_manager.AcquireRewardAtIndex(landed_index); // This will be animated
 
-            // TODO: Spawn particle animation here
 
             int num_of_fly_effects = landed_reward.amount < 10 ? landed_reward.amount : 15;
 

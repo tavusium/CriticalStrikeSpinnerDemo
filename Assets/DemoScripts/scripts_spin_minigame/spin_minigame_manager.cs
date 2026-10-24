@@ -153,7 +153,7 @@ public class spin_minigame_manager : MonoBehaviour
         if (current_zone_type == zone_type && !forceSet) return;
 
         current_zone_type = zone_type;
-        ref_spin_manager.SetZoneType(zone_type, current_rewards);
+        ref_spin_manager.SetZoneType(zone_type, current_rewards, forceSet);
         //Debug.Log("Zone changed to: " + current_zone_type.ToString());
 
     }
@@ -284,12 +284,17 @@ public class spin_minigame_manager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        ref_ui_minigame.SetActive(false);
-        ref_loseview_popup.SetActive(false);
-        ref_lastchance_popup.SetActive(false);
-        ref_leave_popup.SetActive(false);
-        ref_spin_manager.DisableLeaveButton();
+        ref_ui_minigame.SetActive(false); // Hide the minigame UI
+        ref_loseview_popup.SetActive(false); // Hide the loseview popup
+        ref_lastchance_popup.SetActive(false); // Hide the lastchance popup
+        ref_leave_popup.SetActive(false); // Hide the leave popup
+        ref_spin_manager.DisableLeaveButton(); // Disable the leave button, TODO: is neccessary?
         ref_spin_counter_manager.ResetSpinCounter(safe_per_rounds, super_per_rounds);
+
+
+        // If the last played round is silver or gold, when the player 
+        // starts the second time, it shows silver or gold then changes.
+        // We want to prevent that.
         SetZone(SpinWheelZoneType.RiskZone, true);
 
 
@@ -314,6 +319,7 @@ public class spin_minigame_manager : MonoBehaviour
         ref_ui_minigame.SetActive(true);
         SetZone(SpinWheelZoneType.RiskZone, true);
         ref_spin_manager.EnableLeaveButton();
+        ref_spin_manager.EnableSpinButton();
 
     }
 
