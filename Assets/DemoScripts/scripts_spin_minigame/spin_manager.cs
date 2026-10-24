@@ -171,7 +171,7 @@ public class Spin_Manager : MonoBehaviour
         if (landed_reward.item_data.item_id != "bomb")
         {
             // Update the round.
-            ui_comp_award_entry entry = ref_spin_minigame_manager.AcquireRewardAtIndex(landed_index); // This will be animated
+            ui_comp_reward_entry entry = ref_spin_minigame_manager.AcquireRewardAtIndex(landed_index); // This will be animated
 
 
             int num_of_fly_effects = landed_reward.amount < 10 ? landed_reward.amount : 15;

@@ -1,7 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using System.Globalization;
+
 
 public class player_currency_manager : MonoBehaviour
 {
@@ -35,7 +35,7 @@ public class player_currency_manager : MonoBehaviour
         ref_audio_source.PlayOneShot(sfx_update_cash, 1f);
 
         DOVirtual.Int(player_currency_cash, new_cash_amount, 1f,
-        value => ref_player_cash_text.text = value.ToString("N0", CultureInfo.InvariantCulture))
+        value => ref_player_cash_text.text = value.ToString("N0", System.Globalization.CultureInfo.InvariantCulture))
         .SetEase(Ease.InOutSine);
 
         player_currency_cash = new_cash_amount;
@@ -47,7 +47,7 @@ public class player_currency_manager : MonoBehaviour
         ref_audio_source.PlayOneShot(sfx_update_gold, 1f);
 
         DOVirtual.Int(player_currency_gold, new_gold_amount, 1f,
-        value => ref_player_golds_text.text = value.ToString("N0", CultureInfo.InvariantCulture))
+        value => ref_player_golds_text.text = value.ToString("N0", System.Globalization.CultureInfo.InvariantCulture))
         .SetEase(Ease.InOutSine);
 
         player_currency_gold = new_gold_amount;

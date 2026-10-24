@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ui_comp_award_entry
   icon: {fileID: 3751448299894657744}
-  amountText: {fileID: 600506277117296972}
+  amount_text: {fileID: 600506277117296972}
 --- !u!114 &8138462559543814236
 MonoBehaviour:
   m_ObjectHideFlags: 0

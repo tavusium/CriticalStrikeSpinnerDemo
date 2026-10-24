@@ -19,10 +19,10 @@ MonoBehaviour:
     amount: 800
   - item_data: {fileID: 11400000, guid: 6eec61714b787df40a386e0f764cf7a4, type: 2}
     amount: 6
-  - item_data: {fileID: 11400000, guid: eda7acc1514ecda4cac93613c78eccd3, type: 2}
-    amount: 0
-  - item_data: {fileID: 11400000, guid: eda7acc1514ecda4cac93613c78eccd3, type: 2}
-    amount: 0
+  - item_data: {fileID: 11400000, guid: 8b872f64fdeae5144aa205ba77fe8c11, type: 2}
+    amount: 6
+  - item_data: {fileID: 11400000, guid: 4ba80eee8ba27914ba54a383cab5a344, type: 2}
+    amount: 1
   - item_data: {fileID: 11400000, guid: 5710278083852b54c96eafc6b4711073, type: 2}
     amount: 6
   - item_data: {fileID: 11400000, guid: 76a981f31c2960b4a874c353fd1e1874, type: 2}

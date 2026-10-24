@@ -17,12 +17,13 @@ public class spin_minigame_manager : MonoBehaviour
     [SerializeField] private player_currency_manager ref_player_currency_manager;
     [SerializeField] private spin_zone_manager ref_spin_zone_manager;
     [SerializeField] private spin_counter_manager ref_spin_counter_manager;
+    [SerializeField] private UI_mainscreen_manager ref_ui_mainscreen_manager;
 
     [Header("Prefab References")]
-    [SerializeField] private ui_comp_award_entry prefab_content_entry;
+    [SerializeField] private ui_comp_reward_entry prefab_content_entry;
 
 
-    [Header("Award Lists")]
+    [Header("Reward Lists")]
     [SerializeField] private spin_wheel_zone_reward_list bronze_wheel_rewards;
 
     [SerializeField] private spin_wheel_zone_reward_list silver_wheel_rewards;
@@ -111,10 +112,10 @@ public class spin_minigame_manager : MonoBehaviour
         SetZone(next_zone_type);
     }
 
-    public ui_comp_award_entry AcquireRewardAtIndex(int index)
+    public ui_comp_reward_entry AcquireRewardAtIndex(int index)
     {
         RewardEntry reward = current_rewards.reward_list[index];
-        ui_comp_award_entry entry = null;
+        ui_comp_reward_entry entry = null;
 
         // We should check if the same award already exists in the collected_items list. If it does, we can just increase the amount.
         int possible_index = collected_items.FindIndex(a => a.item_data.item_id == reward.item_data.item_id); // Returns -1 if not found.
@@ -125,7 +126,7 @@ public class spin_minigame_manager : MonoBehaviour
             collected_items[possible_index].amount += reward.amount;
 
             // Update the UI for that specific entry. Triggers the animation for the amount text !!
-            entry = ref_content_panel.transform.GetChild(possible_index).GetComponent<ui_comp_award_entry>();
+            entry = ref_content_panel.transform.GetChild(possible_index).GetComponent<ui_comp_reward_entry>();
             entry.UpdateAmount(collected_items[possible_index].amount);
             return entry;
         }
@@ -142,7 +143,7 @@ public class spin_minigame_manager : MonoBehaviour
             ref_content_panel.GetComponent<RectTransform>());
 
 
-        return entry.GetComponent<ui_comp_award_entry>();
+        return entry.GetComponent<ui_comp_reward_entry>();
     }
 
 
@@ -290,6 +291,7 @@ public class spin_minigame_manager : MonoBehaviour
         ref_leave_popup.SetActive(false); // Hide the leave popup
         ref_spin_manager.DisableLeaveButton(); // Disable the leave button, TODO: is neccessary?
         ref_spin_counter_manager.ResetSpinCounter(safe_per_rounds, super_per_rounds);
+        ref_ui_mainscreen_manager.ShowMainScreen(); // Show the main screen UI
 
 
         // If the last played round is silver or gold, when the player 
@@ -320,6 +322,7 @@ public class spin_minigame_manager : MonoBehaviour
         SetZone(SpinWheelZoneType.RiskZone, true);
         ref_spin_manager.EnableLeaveButton();
         ref_spin_manager.EnableSpinButton();
+        ref_ui_mainscreen_manager.HideMainScreen(); // Hide the main screen UI
 
     }
 
