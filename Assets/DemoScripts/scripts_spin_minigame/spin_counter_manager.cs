@@ -32,6 +32,10 @@ public class spin_counter_manager : MonoBehaviour
     [SerializeField] private GameObject ref_spin_counter_masked_container_images;
     [SerializeField] private GameObject ref_spin_counter_masked_container_texts;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource ref_audio_source;
+    [SerializeField] private AudioClip ref_audio_clip_spin_counter_increment;
+
 
     public void ResetSpinCounter(int safe_per_rounds, int super_per_rounds)
     {
@@ -163,7 +167,14 @@ public class spin_counter_manager : MonoBehaviour
                 });
 
                 // Unfade the ingoing item text.
-                child_text.GetComponent<TMP_Text>().DOFade(1f, 0.3f).SetDelay(ingoing_text_unfade_delay);
+                child_text.GetComponent<TMP_Text>().DOFade(1f, 0.3f).SetDelay(ingoing_text_unfade_delay)
+                .OnComplete(() =>
+                {
+                    // Play the audio clip after the ingoing item text has fully unfaded.    
+                    // I added this, but feels uncessary.
+                    // TODO: Some kind of sfx that indicates the counter bar moving should exist somewhere.                
+                    ref_audio_source.PlayOneShot(ref_audio_clip_spin_counter_increment);
+                });
 
 
             }

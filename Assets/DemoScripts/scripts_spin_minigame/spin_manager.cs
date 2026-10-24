@@ -23,6 +23,9 @@ public class Spin_Manager : MonoBehaviour
     [SerializeField] private AudioClip sfx_collect_cash;
     [SerializeField] private AudioClip sfx_collect_gold;
     [SerializeField] private AudioClip sfx_collect_item;
+    [SerializeField] private AudioClip sfx_outcome_item;
+    [SerializeField] private AudioClip sfx_outcome_item_valuable;
+    [SerializeField] private AudioClip sfx_zone_safe_super;
 
 
     [Header("UI References")]
@@ -100,6 +103,11 @@ public class Spin_Manager : MonoBehaviour
 
         ref_audio_source.PlayOneShot(sfx_revolver_clicks, 0.5f);
 
+        if (zone_type == SpinWheelZoneType.SafeZone || zone_type == SpinWheelZoneType.SuperZone)
+        {
+            ref_audio_source.PlayOneShot(sfx_zone_safe_super, 0.8f);
+        }
+
 
         ref_wheel_collection.transform.DOLocalRotate(new Vector3(0, 180f, 0), 0.5f, RotateMode.FastBeyond360)
         .SetRelative()
@@ -176,9 +184,21 @@ public class Spin_Manager : MonoBehaviour
 
             int num_of_fly_effects = landed_reward.amount < 10 ? landed_reward.amount : 15;
 
+            if (landed_reward.amount == 1 || landed_reward.item_data.item_id == "gold")
+            {
+                ref_audio_source.PlayOneShot(sfx_outcome_item_valuable, 1f);
+            }
+            else
+            {
+                ref_audio_source.PlayOneShot(sfx_outcome_item, 1f);
+            }
+
+
             ref_ui_reward_fly_effect.StartFlyEffect(landed_reward.item_data.item_icon,
                                                         new Vector2(0, 200),
                                                             entry.GetComponent<RectTransform>(), num_of_fly_effects);
+
+            android_vibration.Medium();
 
 
             DOVirtual.DelayedCall(1f, () =>
@@ -213,6 +233,7 @@ public class Spin_Manager : MonoBehaviour
         {
             // Handle bomb outcome (e.g., reset round, deduct points, etc.)
             ref_audio_source.PlayOneShot(sfx_gunshot, 1f);
+            android_vibration.Heavy();
             ref_spin_minigame_manager.TriggerLose();
         }
     }

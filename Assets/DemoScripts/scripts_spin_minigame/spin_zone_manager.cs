@@ -13,7 +13,7 @@ public class spin_zone_manager : MonoBehaviour
     [SerializeField] private TMP_Text ref_super_zone_value;
 
 
-    private SpinWheelZoneType current_zone_type = SpinWheelZoneType.RiskZone;
+    //private SpinWheelZoneType current_zone_type = SpinWheelZoneType.RiskZone;
 
 
     public void UpdateZoneBoxes(
@@ -31,10 +31,15 @@ public class spin_zone_manager : MonoBehaviour
         if (next_safe_round == next_super_round)
             next_safe_round += safe_per_rounds;
 
-        ref_safe_zone_value.text = next_safe_round.ToString();
-        ref_super_zone_value.text = next_super_round.ToString();
+        DOTween.To(() => int.Parse(ref_safe_zone_value.text),
+            x => ref_safe_zone_value.text = x.ToString(),
+            next_safe_round, 3f);
 
-        current_zone_type = zone_type;
+        DOTween.To(() => int.Parse(ref_super_zone_value.text),
+            x => ref_super_zone_value.text = x.ToString(),
+            next_super_round, 3f);
+
+        //current_zone_type = zone_type;
     }
 
 }
