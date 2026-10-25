@@ -57,8 +57,8 @@ public class spin_minigame_manager : MonoBehaviour
     private int current_spin_round = 1;
     public spin_wheel_zone_reward_list current_rewards;
     private int num_revives = 0;
-    private readonly int safe_per_rounds = 3; // Every 5 rounds, the player enters a safe zone
-    private readonly int super_per_rounds = 9; // Every 30 rounds, the player enters a super zone
+    private int safe_per_rounds = 3; // Every 5 rounds, the player enters a safe zone
+    private int super_per_rounds = 9; // Every 30 rounds, the player enters a super zone
 
     private readonly List<RewardEntry> collected_items = new();
 
@@ -66,7 +66,8 @@ public class spin_minigame_manager : MonoBehaviour
 
     private void OnValidate()
     {
-        ref_audio_source = GameObject.Find("audiosource_sfx").GetComponent<AudioSource>();
+        if (ref_audio_source == null)
+            ref_audio_source = GameObject.Find("audiosource_sfx").GetComponent<AudioSource>();
     }
 
 
@@ -146,7 +147,17 @@ public class spin_minigame_manager : MonoBehaviour
         return entry.GetComponent<ui_comp_reward_entry>();
     }
 
-
+    /// <summary>
+    /// Sets the period for safe and super rounds.
+    /// Only call this before HandleStartMinigame, when necessary.
+    /// </summary>
+    /// <param name="safeRounds">Safe round period.</param>
+    /// <param name="superRounds">Super round period.</param>
+    public void SetPeriod(int safeRounds, int superRounds)
+    {
+        safe_per_rounds = safeRounds;
+        super_per_rounds = superRounds;
+    }
 
 
     private void SetZone(SpinWheelZoneType zone_type, bool forceSet = false)
@@ -277,6 +288,8 @@ public class spin_minigame_manager : MonoBehaviour
 
     }
 
+    // Exit and Start Methods can be optimized. But causes no issues for now. So we can leave it as is.
+
     private void ExitMinigame()
     {
         // Clear the collected items and reset the UI
@@ -323,6 +336,7 @@ public class spin_minigame_manager : MonoBehaviour
         ref_spin_manager.EnableLeaveButton();
         ref_spin_manager.EnableSpinButton();
         ref_ui_mainscreen_manager.HideMainScreen(); // Hide the main screen UI
+        ref_spin_counter_manager.ResetSpinCounter(safe_per_rounds, super_per_rounds);
 
     }
 

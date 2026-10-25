@@ -22,12 +22,23 @@ public class ui_spin_loseview_box : MonoBehaviour
 
     private void OnValidate()
     {
-        ref_button_loseview_giveup = GameObject.Find("UI_loseview_button_giveup").GetComponent<Button>();
-        ref_button_loseview_revive_gold = GameObject.Find("UI_loseview_button_revive_gold").GetComponent<Button>();
-        ref_button_loseview_revive_ad = GameObject.Find("UI_loseview_button_revive_ad").GetComponent<Button>();
-        ref_text_loseview_revive_cost_text = GameObject.Find("UI_loseview_button_revive_gold_value").GetComponent<TMP_Text>();
-        ref_loseview_text_box = GameObject.Find("UI_loseview_text_box");
-        ref_loseview_card = GameObject.Find("UI_loseview_center_image_box");
+        if (ref_button_loseview_giveup == null)
+            ref_button_loseview_giveup = GameObject.Find("UI_loseview_button_giveup").GetComponent<Button>();
+
+        if (ref_button_loseview_revive_gold == null)
+            ref_button_loseview_revive_gold = GameObject.Find("UI_loseview_button_revive_gold").GetComponent<Button>();
+
+        if (ref_button_loseview_revive_ad == null)
+            ref_button_loseview_revive_ad = GameObject.Find("UI_loseview_button_revive_ad").GetComponent<Button>();
+
+        if (ref_text_loseview_revive_cost_text == null)
+            ref_text_loseview_revive_cost_text = GameObject.Find("UI_loseview_button_revive_gold_value").GetComponent<TMP_Text>();
+
+        if (ref_loseview_text_box == null)
+            ref_loseview_text_box = GameObject.Find("UI_loseview_text_box");
+
+        if (ref_loseview_card == null)
+            ref_loseview_card = GameObject.Find("UI_loseview_center_image_box");
     }
 
 

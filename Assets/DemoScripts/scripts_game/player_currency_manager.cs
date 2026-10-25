@@ -23,9 +23,14 @@ public class player_currency_manager : MonoBehaviour
 
     private void OnValidate()
     {
-        ref_player_cash_text = transform.Find("UI_player_currency_cash_value").GetComponent<TMP_Text>();
-        ref_player_golds_text = transform.Find("UI_player_currency_gold_value").GetComponent<TMP_Text>();
-        ref_audio_source = GameObject.Find("audiosource_sfx").GetComponent<AudioSource>();
+        if (ref_player_cash_text == null)
+            ref_player_cash_text = transform.Find("UI_player_currency_cash_value").GetComponent<TMP_Text>();
+
+        if (ref_player_golds_text == null)
+            ref_player_golds_text = transform.Find("UI_player_currency_gold_value").GetComponent<TMP_Text>();
+
+        if (ref_audio_source == null)
+            ref_audio_source = GameObject.Find("audiosource_sfx").GetComponent<AudioSource>();
     }
 
 

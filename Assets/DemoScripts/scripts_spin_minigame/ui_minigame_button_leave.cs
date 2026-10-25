@@ -10,14 +10,12 @@ public class ui_minigame_button_leave : MonoBehaviour
     private void OnValidate()
     {
         if (ref_leave_button == null)
-        {
             ref_leave_button = GetComponent<Button>();
-        }
+
 
         if (ref_spin_minigame_manager == null)
-        {
             ref_spin_minigame_manager = GameObject.Find("spin_minigame_manager").GetComponent<spin_minigame_manager>();
-        }
+
 
     }
 

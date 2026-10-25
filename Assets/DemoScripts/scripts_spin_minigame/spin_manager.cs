@@ -60,20 +60,33 @@ public class Spin_Manager : MonoBehaviour
     // Editor-only validation method to get the button references
     private void OnValidate()
     {
-        ref_spin_button = GameObject.Find("UI_button_spin").GetComponent<Button>();
-        ref_wheel_collection = GameObject.Find("UI_wheel_collection");
-        ref_wheel_barrel = GameObject.Find("UI_wheel_barrel");
-        ref_wheel_barrel_component = ref_wheel_barrel.GetComponent<spin_wheel_barrel>();
-        ref_wheel_title_tmp = GameObject.Find("UI_wheel_title_value").GetComponent<TMP_Text>();
-        ref_wheel_description_tmp = GameObject.Find("UI_wheel_description_value").GetComponent<TMP_Text>();
-        ref_wheel_indicator_image = GameObject.Find("UI_wheel_indicator").GetComponent<Image>();
+        if (ref_spin_button == null)
+            ref_spin_button = GameObject.Find("UI_button_spin").GetComponent<Button>();
 
-        ref_ui_rewards_leave_button = GameObject.Find("UI_rewards_button_leave").GetComponent<Button>();
+        if (ref_wheel_collection == null)
+            ref_wheel_collection = GameObject.Find("UI_wheel_collection");
+
+        if (ref_wheel_barrel == null)
+            ref_wheel_barrel = GameObject.Find("UI_wheel_barrel");
+
+        if (ref_wheel_barrel_component == null)
+            ref_wheel_barrel_component = ref_wheel_barrel.GetComponent<spin_wheel_barrel>();
+
+        if (ref_wheel_title_tmp == null)
+            ref_wheel_title_tmp = GameObject.Find("UI_wheel_title_value").GetComponent<TMP_Text>();
+
+        if (ref_wheel_description_tmp == null)
+            ref_wheel_description_tmp = GameObject.Find("UI_wheel_description_value").GetComponent<TMP_Text>();
+
+        if (ref_wheel_indicator_image == null)
+            ref_wheel_indicator_image = GameObject.Find("UI_wheel_indicator").GetComponent<Image>();
+
+        if (ref_ui_rewards_leave_button == null)
+            ref_ui_rewards_leave_button = GameObject.Find("UI_rewards_button_leave").GetComponent<Button>();
 
         if (ref_audio_source == null)
-        {
             ref_audio_source = GameObject.Find("audiosource_sfx").GetComponent<AudioSource>();
-        }
+
 
     }
 
@@ -99,7 +112,6 @@ public class Spin_Manager : MonoBehaviour
 
         // Update the wheel's appearance and data based on the zone type
         DisableSpinButton();
-        ref_wheel_barrel_component.ReconstructBarrel(rewards);
 
         ref_audio_source.PlayOneShot(sfx_revolver_clicks, 0.5f);
 
@@ -115,6 +127,12 @@ public class Spin_Manager : MonoBehaviour
         .OnComplete(() =>
         {
             SwitchWheelZoneUI(zone_type);
+
+            // Change slot contents while the wheel is flipped
+            // Timing and Animation of this reconstruction can be adjusted for better visual effect.
+            // But this version feels enough for now.
+            ref_wheel_barrel_component.ReconstructBarrel(rewards);
+
 
             ref_wheel_collection.transform.DOLocalRotate(new Vector3(0, 180f, 0), 0.5f, RotateMode.FastBeyond360)
             .SetRelative()
@@ -181,10 +199,10 @@ public class Spin_Manager : MonoBehaviour
             // Update the round.
             ui_comp_reward_entry entry = ref_spin_minigame_manager.AcquireRewardAtIndex(landed_index); // This will be animated
 
-
+            // Spawn flying effects based on the landed reward amount.
             int num_of_fly_effects = landed_reward.amount < 10 ? landed_reward.amount : 15;
 
-            if (landed_reward.amount == 1 || landed_reward.item_data.item_id == "gold")
+            if (landed_reward.amount == 1 || landed_reward.item_data.item_id == "gold") // Valuable Outcome
             {
                 ref_audio_source.PlayOneShot(sfx_outcome_item_valuable, 1f);
             }
@@ -231,7 +249,7 @@ public class Spin_Manager : MonoBehaviour
         }
         else
         {
-            // Handle bomb outcome (e.g., reset round, deduct points, etc.)
+            // Handle bomb outcome
             ref_audio_source.PlayOneShot(sfx_gunshot, 1f);
             android_vibration.Heavy();
             ref_spin_minigame_manager.TriggerLose();

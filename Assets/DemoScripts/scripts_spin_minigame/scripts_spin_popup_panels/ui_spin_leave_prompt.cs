@@ -10,8 +10,10 @@ public class ui_spin_leave_prompt : MonoBehaviour
 
     private void OnValidate()
     {
-        ref_button_leave_claim = GameObject.Find("UI_leave_prompt_button_claim").GetComponent<Button>();
-        ref_button_leave_goback = GameObject.Find("UI_leave_prompt_button_goback").GetComponent<Button>();
+        if (ref_button_leave_claim == null)
+            ref_button_leave_claim = GameObject.Find("UI_leave_prompt_button_claim").GetComponent<Button>();
+        if (ref_button_leave_goback == null)
+            ref_button_leave_goback = GameObject.Find("UI_leave_prompt_button_goback").GetComponent<Button>();
     }
 
 

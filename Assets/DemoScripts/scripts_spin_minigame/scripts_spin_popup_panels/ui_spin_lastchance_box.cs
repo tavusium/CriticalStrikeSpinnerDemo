@@ -10,8 +10,10 @@ public class ui_spin_lastchance_box : MonoBehaviour
 
     private void OnValidate()
     {
-        ref_button_lastchance_lose = GameObject.Find("UI_lastchance_button_lose").GetComponent<Button>();
-        ref_button_lastchance_goback = GameObject.Find("UI_lastchance_button_goback").GetComponent<Button>();
+        if (ref_button_lastchance_lose == null)
+            ref_button_lastchance_lose = GameObject.Find("UI_lastchance_button_lose").GetComponent<Button>();
+        if (ref_button_lastchance_goback == null)
+            ref_button_lastchance_goback = GameObject.Find("UI_lastchance_button_goback").GetComponent<Button>();
     }
 
 
